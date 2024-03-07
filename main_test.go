@@ -19,11 +19,13 @@ func TestRun(t *testing.T) {
 	in := "message"
 	rsp, err := http.Get("http://localhost:18080/" + in)
 	if err != nil {
+		// テストの失敗を示すメッセージを出力
 		t.Errorf("failed to get: %+v", err)
 	}
 	defer rsp.Body.Close()
 	got, err := io.ReadAll(rsp.Body)
 	if err != nil {
+		// テストの失敗を示すメッセージを出力し、テストの実行を停止
 		t.Fatalf("failed to read body: %+v", err)
 	}
 
@@ -35,6 +37,8 @@ func TestRun(t *testing.T) {
 	cancel()
 
 	if err := eg.Wait(); err != nil {
+		// テストの失敗を示すメッセージを出力し、テストの実行を停止
+		// フォーマットは指定できないため単純なメッセージを出すときに利用する
 		t.Fatal()
 	}
 }

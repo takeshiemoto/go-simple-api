@@ -15,12 +15,20 @@ func run(ctx context.Context) error {
 	s := &http.Server{
 		Addr: ":18080",
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			/**
+			指定されたio.Writerに実装されている出力ストリームに書き込む
+			```go
+			// 標準出力を例として使用
+			w := os.Stdout
+			fmt.Fprintf(w, "Hello, %s!", "world")
+			*/
 			fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
 		}),
 	}
 	eg, ctx := errgroup.WithContext(ctx)
 	eg.Go(func() error {
 		if err := s.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			// 指定されたフォーマットでログに出力する
 			log.Printf("failed to close: %+v", err)
 			return err
 		}
