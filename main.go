@@ -10,11 +10,19 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 // テスト容易性を上げるためにrun関数に切り出す
 // context.Contextは複数の関数、ゴルーチン間でキャンセルシグナルを伝播させる手段を提供する
 func run(ctx context.Context) error {
+	// グレースフルシャットダウンの実装
+	// プロセス終了シグナルを受け取ったときに実行中の処理を正しく終了させる。
+	// シグナル(os.Interrupt, syscall.SIGTERM)を受け取ったらcontextをキャンセルする。
+	ctx, stop := signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
 	cfg, err := config.New()
 	if err != nil {
 		return err
