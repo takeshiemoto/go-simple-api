@@ -17,8 +17,12 @@ func run(ctx context.Context) error {
 		return err
 	}
 
+	// fmt.Sprintfは指定されたフォーマットで文字列を生成する
+	// 文字列結合を行うケースで利用される
 	l, err := net.Listen("tcp", fmt.Sprintf(":%d", cfg.Port))
 	if err != nil {
+		// エラーメッセージを出力しプログラムを終了する
+		// %dは整数、%vは任意の型
 		log.Fatalf("failed to listen port %d: %v", cfg.Port, err)
 	}
 
