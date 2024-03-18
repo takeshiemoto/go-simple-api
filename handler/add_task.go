@@ -53,7 +53,7 @@ func (at *AddTask) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	// 追加したタスクのIDをレスポンスとして返す
 	rsp := struct {
-		ID entity.TaskID `json:"ID"`
+		ID entity.TaskID `json:"id"`
 	}{ID: id}
 
 	ResponseJSON(ctx, w, rsp, http.StatusOK)
