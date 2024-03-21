@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"golang.org/x/sync/errgroup"
 	"io"
 	"net"
 	"net/http"
 	"testing"
+
+	"golang.org/x/sync/errgroup"
 )
 
 func TestServer_Run(t *testing.T) {

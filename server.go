@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"errors"
-	"golang.org/x/sync/errgroup"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"golang.org/x/sync/errgroup"
 )
 
 type Server struct {

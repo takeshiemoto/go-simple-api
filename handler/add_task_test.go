@@ -2,13 +2,14 @@ package handler
 
 import (
 	"bytes"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/takeshiemoto/go-simple-api/entity"
 	"github.com/takeshiemoto/go-simple-api/store"
 	"github.com/takeshiemoto/go-simple-api/testutil"
-	"net/http"
-	"net/http/httptest"
-	"testing"
 )
 
 func TestAddTask(t *testing.T) {

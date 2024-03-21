@@ -1,9 +1,10 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/takeshiemoto/go-simple-api/entity"
 	"github.com/takeshiemoto/go-simple-api/store"
-	"net/http"
 )
 
 type ListTask struct {

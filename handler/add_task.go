@@ -2,11 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"net/http"
+	"time"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/takeshiemoto/go-simple-api/entity"
 	"github.com/takeshiemoto/go-simple-api/store"
-	"net/http"
-	"time"
 )
 
 type AddTask struct {

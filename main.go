@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/takeshiemoto/go-simple-api/config"
 	"log"
 	"net"
 	"os"
+
+	"github.com/takeshiemoto/go-simple-api/config"
 )
 
 // テスト容易性を上げるためにrun関数に切り出す

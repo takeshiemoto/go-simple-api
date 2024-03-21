@@ -2,6 +2,7 @@ package store
 
 import (
 	"errors"
+
 	"github.com/takeshiemoto/go-simple-api/entity"
 )
 
