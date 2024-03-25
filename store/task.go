@@ -15,7 +15,7 @@ func (r *Repository) ListTasks(ctx context.Context, db Queryer) (entity.Tasks, e
 	return tasks, nil
 }
 
-func (r Repository) AddTask(ctx context.Context, db Execer, t *entity.Task) error {
+func (r *Repository) AddTask(ctx context.Context, db Execer, t *entity.Task) error {
 	t.Created = r.Clocker.Now()
 	t.Modified = r.Clocker.Now()
 	sql := `INSERT INTO task (title, status, created, modified) VALUES (?, ?, ?, ?)`
