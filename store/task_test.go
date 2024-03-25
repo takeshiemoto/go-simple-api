@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/go-cmp/cmp"
 	"github.com/takeshiemoto/go-simple-api/clock"
 	"github.com/takeshiemoto/go-simple-api/entity"
