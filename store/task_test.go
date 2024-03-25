@@ -4,8 +4,10 @@ import (
 	"context"
 	"testing"
 
+	"github.com/DATA-DOG/go-sqlmock"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/go-cmp/cmp"
+	"github.com/jmoiron/sqlx"
 	"github.com/takeshiemoto/go-simple-api/clock"
 	"github.com/takeshiemoto/go-simple-api/entity"
 	"github.com/takeshiemoto/go-simple-api/testutil"
@@ -26,6 +28,37 @@ func TestRepository_ListTasks(t *testing.T) {
 	}
 	if d := cmp.Diff(gots, wants); len(d) != 0 {
 		t.Errorf("differs: (-got +want)\n%s", d)
+	}
+}
+
+func TestRepository_AddTask(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+
+	c := clock.FixedClocker{}
+	var wantID int64 = 20
+	okTest := &entity.Task{
+		Title:    "ok task",
+		Status:   "todo",
+		Created:  c.Now(),
+		Modified: c.Now(),
+	}
+
+	db, mock, err := sqlmock.New()
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = db.Close() })
+
+	// カンマで終わらない改行はエラーになるので注意が必要
+	mock.ExpectExec(
+		`INSERT INTO task \(title, status, created, modified\) VALUES \(\?, \?, \?, \?\)`,
+	).WithArgs(okTest.Title, okTest.Status, c.Now(), c.Now()).WillReturnResult(sqlmock.NewResult(wantID, 1))
+
+	xdb := sqlx.NewDb(db, "mysql")
+	r := &Repository{Clocker: c}
+	if err := r.AddTask(ctx, xdb, okTest); err != nil {
+		t.Errorf("want no error, but got %v", err)
 	}
 }
 
