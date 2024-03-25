@@ -4,12 +4,12 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/jmoiron/sqlx"
-	"github.com/takeshiemoto/go-simple-api/clock"
-	"github.com/takeshiemoto/go-simple-api/config"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
+	"github.com/takeshiemoto/go-simple-api/clock"
+	"github.com/takeshiemoto/go-simple-api/config"
 )
 
 func New(ctx context.Context, cfg *config.Config) (*sqlx.DB, func(), error) {
