@@ -26,13 +26,16 @@ func TestAddTask(t *testing.T) {
 			want: want{
 				status:  http.StatusOK,
 				rspFile: "testdata/add_task/ok_rsp.json.golden",
-			}},
+			},
+		},
 		"BadRequest": {
 			reqFile: "testdata/add_task/bad_req.json.golden",
-			want: want{status: http.StatusBadRequest,
+			want: want{
+				status:  http.StatusBadRequest,
 				rspFile: "testdata/add_task/bad_rsp.json.golden",
 			},
-		}}
+		},
+	}
 	for n, tt := range tests {
 		tt := tt
 		t.Run(n, func(t *testing.T) {

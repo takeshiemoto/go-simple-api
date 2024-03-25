@@ -2,8 +2,10 @@ package entity
 
 import "time"
 
-type TaskID int64
-type TaskStatus string
+type (
+	TaskID     int64
+	TaskStatus string
+)
 
 const (
 	TaskStatusTodo  TaskStatus = "todo"

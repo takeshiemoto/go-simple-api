@@ -10,7 +10,7 @@ import (
 )
 
 func NewMux() http.Handler {
-	//mux := http.NewServeMux()
+	// mux := http.NewServeMux()
 	mux := chi.NewRouter()
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
