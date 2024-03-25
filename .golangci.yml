@@ -5,6 +5,12 @@ linters-settings:
     min-complexity: 30
   misspell:
     locale: US
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/takeshiemoto/go-simple-api)
+    skip-generated: true
 
 linters:
   disable-all: true
