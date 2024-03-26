@@ -1,4 +1,4 @@
-.PHONY: help build build-local up down logs ps test
+.PHONY: help build build-local up down logs ps test clean
 .DEFAULT_GOAL := help
 
 DOCKER_TAG := latest
@@ -23,6 +23,9 @@ ps:
 
 test:
 	go test -race -shuffle=on ./...
+
+clean:
+	docker-compose down --rmi all --volumes --remove-orphans
 
 migrate:  ## Execute migration
 	mysqldef -u todo -p todo -h 127.0.0.1 -P 33306 todo < ./_tools/mysql/schema.sql
