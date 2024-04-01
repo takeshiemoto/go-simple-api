@@ -10,7 +10,7 @@ import (
 
 type ListTask struct {
 	DB   *sqlx.DB
-	Repo store.Repository
+	Repo *store.Repository
 }
 
 type task struct {
