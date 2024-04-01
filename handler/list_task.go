@@ -3,12 +3,14 @@ package handler
 import (
 	"net/http"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/takeshiemoto/go-simple-api/entity"
 	"github.com/takeshiemoto/go-simple-api/store"
 )
 
 type ListTask struct {
-	Store *store.TaskStore
+	DB   *sqlx.DB
+	Repo store.Repository
 }
 
 type task struct {
@@ -19,7 +21,13 @@ type task struct {
 
 func (lt *ListTask) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	tasks := lt.Store.All()
+	tasks, err := lt.Repo.ListTasks(ctx, lt.DB)
+	if err != nil {
+		ResponseJSON(ctx, w, &ErrorResponse{
+			Message: err.Error(),
+		}, http.StatusInternalServerError)
+		return
+	}
 	var rsp []task
 	for _, t := range tasks {
 		rsp = append(rsp, task{
