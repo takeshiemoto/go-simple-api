@@ -36,14 +36,8 @@ func (at *AddTask) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 新しいタスクの作成
-	t := &entity.Task{
-		Title:  b.Title,
-		Status: entity.TaskStatusTodo,
-	}
-
 	// ストアにタスクを追加する
-	t, err = at.Service.AddTask(ctx, b.Title)
+	t, err := at.Service.AddTask(ctx, b.Title)
 	if err != nil {
 		ResponseJSON(ctx, w, &ErrorResponse{
 			Message: err.Error(),
