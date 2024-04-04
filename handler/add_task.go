@@ -5,14 +5,11 @@ import (
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/jmoiron/sqlx"
 	"github.com/takeshiemoto/go-simple-api/entity"
-	"github.com/takeshiemoto/go-simple-api/store"
 )
 
 type AddTask struct {
-	DB        *sqlx.DB
-	Repo      *store.Repository
+	Service   AddTaskService
 	Validator *validator.Validate
 }
 
@@ -46,7 +43,7 @@ func (at *AddTask) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// ストアにタスクを追加する
-	err = at.Repo.AddTask(ctx, at.DB, t)
+	t, err = at.Service.AddTask(ctx, b.Title)
 	if err != nil {
 		ResponseJSON(ctx, w, &ErrorResponse{
 			Message: err.Error(),
