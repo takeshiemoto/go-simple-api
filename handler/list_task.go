@@ -25,7 +25,7 @@ func (lt *ListTask) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}, http.StatusInternalServerError)
 		return
 	}
-	var rsp []task
+	rsp := []task{}
 	for _, t := range tasks {
 		rsp = append(rsp, task{
 			ID:     t.ID,

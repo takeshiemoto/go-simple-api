@@ -52,7 +52,7 @@ func TestListTask(t *testing.T) {
 			t.Parallel()
 
 			w := httptest.NewRecorder()
-			r := httptest.NewRequest(http.MethodGet, "/", nil)
+			r := httptest.NewRequest(http.MethodGet, "/tasks", nil)
 
 			moq := &ListTasksServiceMock{}
 			moq.ListTasksFunc = func(ctx context.Context) (entity.Tasks, error) {
@@ -65,7 +65,9 @@ func TestListTask(t *testing.T) {
 			sut.ServeHTTP(w, r)
 
 			resp := w.Result()
-			testutil.AssertResponse(t, resp, tt.want.status, testutil.LoadFile(t, tt.want.rspFile))
+			testutil.AssertResponse(t,
+				resp, tt.want.status, testutil.LoadFile(t, tt.want.rspFile),
+			)
 		})
 	}
 }
